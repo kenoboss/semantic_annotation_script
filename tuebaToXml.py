@@ -47,19 +47,31 @@ target.write("<questionaires>\n")
 zaehler = 1
 
 test = False
+sentence_done = []
 while (test == False):
     for sentence in sentences:
-        tokens = sentence.split(" ")
-        sentenclength = len(tokens) - 1
-        questionaire = input(sentence+"Länge: "+str(sentenclength)+"\nEingabe: ")
-        if not (questionaire == ""):
-            line_split = sentence.split(":")
-            sentence_id = line_split[0]
-            start = input("Start:")
-            end = input("Ende:")
-            target.write("<questionaire start='"+str(start)+"' end='"+str(end)+"' qid='"+str(sentence_id)+"q"+str(zaehler)+"' sid='"+str(sentence_id)+"' value='"+str(questionaire)+"'/>\n")
+        line_split = sentence.split(":")
+        sentence_id = line_split[0]
 
-            zaehler = zaehler + 1
+        if not (sentence_id in sentence_done):
+
+            tokens = sentence.split(" ")
+            sentenclength = len(tokens) - 1
+            sentence_clear = ""
+            i = 1
+            while i < len(tokens):
+                sentence_clear += tokens[i]+"#"+str(i)+" "
+                i = i + 1
+
+            print("======Satz: "+str(sentence_id)+"========\n")
+            questionaire = input(sentence_clear+"\nLänge: "+str(sentenclength)+"\nEingabe: ")
+            if not (questionaire == ""):
+                sentence_done.append(sentence_id)
+                start = input("Start:")
+                end = input("Ende:")
+                target.write("<questionaire start='"+str(start)+"' end='"+str(end)+"' qid='"+str(sentence_id)+"q"+str(zaehler)+"' sid='"+str(sentence_id)+"' value='"+str(questionaire)+"'/>\n")
+
+                zaehler = zaehler + 1
 
     time.sleep(2)
     x = input("=============Wiederholung?========\n '-1' für Abbruch\nEingabe: ")
