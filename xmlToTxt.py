@@ -45,3 +45,5 @@ for questionaire in root.iter('questionaire'):
                     sentence_line += str(token.attrib['value'])+" "
 
             target.write(sentence_line+"\n\n")
+
+target.close()
