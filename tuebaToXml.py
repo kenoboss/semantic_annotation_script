@@ -48,6 +48,7 @@ zaehler = 1
 
 test = False
 sentence_done = []
+restSentence = len (sentences)
 while (test == False):
     for sentence in sentences:
         line_split = sentence.split(":")
@@ -63,8 +64,9 @@ while (test == False):
                 sentence_clear += tokens[i]+"#"+str(i)+" "
                 i = i + 1
 
-            print("======Satz: "+str(sentence_id)+"========\n")
-            questionaire = input(sentence_clear+"\nLänge: "+str(sentenclength)+"\nEingabe: ")
+            print("======Satz: "+str(sentence_id)+"========verbleibende Sätze: "+str(restSentence)+"\n")
+            restSentence = restSentence - 1
+            questionaire = input(sentence_clear+"Länge: "+str(sentenclength)+"\nEingabe: ")
             if not (questionaire == ""):
                 sentence_done.append(sentence_id)
                 start = input("Start:")
